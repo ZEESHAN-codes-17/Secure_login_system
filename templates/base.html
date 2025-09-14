@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberNet - Ultra Futuristic Platform</title>
+   <link rel="stylesheet" href="{{ url_for('static', filename= 'style.css')}}">
+</head>
+<body>
+    <!-- Floating Particles -->
+    <div class="floating-particles" id="particles"></div>
+    
+    <!-- Flash Messages -->
+    <div class="flash-messages" id="flashMessages"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">CYBERNET</div>
+            <div class="nav-links">
+                <a href="#" class="nav-link" onclick="showPage('home')">Home</a>
+                <a href="#" class="nav-link" onclick="showPage('login')" id="loginLink">Login</a>
+                <a href="#" class="nav-link" onclick="showPage('register')" id="registerLink">Register</a>
+                <a href="#" class="nav-link" onclick="showPage('dashboard')" style="display:none;" id="dashboardLink">Dashboard</a>
+                <a href="#" class="nav-link" onclick="handleLogout()" style="display:none;" id="logoutLink">Logout</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Home Page -->
+        <div class="page-content active" id="home">
+            <div class="hero-section">
+                <h1 class="hero-title">CYBERNET</h1>
+                <p class="hero-subtitle">Enter the Ultimate Digital Dimension</p>
+                <p class="hero-description">
+                    Welcome to the future of digital interaction. Experience cutting-edge technology, 
+                    immersive interfaces, and next-generation connectivity in our cyber realm.
+                </p>
+                <div class="hero-buttons">
+                    <button class="cyber-btn" onclick="showPage('register')">JOIN THE NETWORK</button>
+                    <button class="cyber-btn secondary" onclick="showPage('login')">ACCESS SYSTEM</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Login Page -->
+        <div class="page-content" id="login">
+            <div class="cyber-form">
+                <h2 class="form-title">SYSTEM ACCESS</h2>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label class="form-label">USERNAME / EMAIL</label>
+                        <input type="text" name="username" class="form-input" required placeholder="Enter your username or email">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">PASSWORD</label>
+                        <input type="password" name="password" class="form-input" required placeholder="Enter your password">
+                    </div>
+                    <button type="submit" class="cyber-btn">INITIATE LOGIN</button>
+                    <div class="link-text">
+                        <a href="#" onclick="showPage('reset_password')">Forgot Password?</a> | 
+                        <a href="#" onclick="showPage('register')">Create Account</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Register Page -->
+        <div class="page-content" id="register">
+            <div class="cyber-form">
+                <h2 class="form-title">NETWORK REGISTRATION</h2>
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label class="form-label">USERNAME</label>
+                        <input type="text" name="username" class="form-input" required placeholder="Choose a username" minlength="3">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">EMAIL</label>
+                        <input type="email" name="email" class="form-input" required placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">PASSWORD</label>
+                        <input type="password" name="password" class="form-input" required placeholder="Create a password" minlength="8">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">CONFIRM PASSWORD</label>
+                        <input type="password" name="confirm_password" class="form-input" required placeholder="Confirm your password">
+                    </div>
+                    <button type="submit" class="cyber-btn">JOIN CYBERNET</button>
+                    <div class="link-text">
+                        Already have access? <a href="#" onclick="showPage('login')">Login Here</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Dashboard Page -->
+        <div class="page-content" id="dashboard">
+            <!-- User Info Section -->
+            <div class="user-info" id="userInfo">
+                <div class="user-avatar" id="userAvatar">U</div>
+                <h2 id="welcomeMessage">Welcome to CyberNet</h2>
+                <p id="userEmail">Loading user data...</p>
+                <div class="stats-grid" id="userStats">
+                    <div class="stat-item">
+                        <div class="stat-value" id="lastLogin">--</div>
+                        <div class="stat-label">Last Login</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="memberSince">--</div>
+                        <div class="stat-label">Member Since</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Dashboard Header -->
+            <div class="hero-section">
+                <h1 class="hero-title">COMMAND CENTER</h1>
+                <p class="hero-subtitle">Control your digital domain</p>
+            </div>
+            
+            <!-- Dashboard Modules -->
+            <div class="dashboard-grid">
+                <div class="dashboard-card" onclick="loadDashboardModule('neural')">
+                    <div class="card-icon">🚀</div>
+                    <h3 class="card-title">Neural Interface</h3>
+                    <p class="card-description">Access advanced AI-powered tools and neural network capabilities.</p>
+                </div>
+                
+                <div class="dashboard-card" onclick="loadDashboardModule('security')">
+                    <div class="card-icon">🔒</div>
+                    <h3 class="card-title">Security Matrix</h3>
+                    <p class="card-description">Monitor and manage your security protocols and encryption keys.</p>
+                </div>
+                
+                <div class="dashboard-card" onclick="loadDashboardModule('analytics')">
+                    <div class="card-icon">📊</div>
+                    <h3 class="card-title">Data Analytics</h3>
+                    <p class="card-description">Visualize your data streams and analyze network performance.</p>
+                </div>
+                
+                <div class="dashboard-card" onclick="loadDashboardModule('network')">
+                    <div class="card-icon">🌐</div>
+                    <h3 class="card-title">Network Hub</h3>
+                    <p class="card-description">Connect with other nodes in the cybernet ecosystem.</p>
+                </div>
+                
+                <div class="dashboard-card" onclick="loadDashboardModule('power')">
+                    <div class="card-icon">⚡</div>
+                    <h3 class="card-title">Power Core</h3>
+                    <p class="card-description">Manage system resources and optimize performance metrics.</p>
+                </div>
+                
+                <div class="dashboard-card" onclick="loadDashboardModule('arena')">
+                    <div class="card-icon">🎮</div>
+                    <h3 class="card-title">Cyber Arena</h3>
+                    <p class="card-description">Enter virtual environments and compete in digital challenges.</p>
+                </div>
+            </div>
+            
+            <!-- Dashboard Stats -->
+            <div class="stats-grid dashboard-stats" id="dashboardStats">
+                <!-- Dynamic stats will be loaded here -->
+            </div>
+        </div>
+        
+        <!-- Reset Password Page -->
+        <div class="page-content" id="reset_password">
+            <div class="cyber-form">
+                <h2 class="form-title">PASSWORD RECOVERY</h2>
+                <form id="resetForm">
+                    <div class="form-group">
+                        <label class="form-label">EMAIL ADDRESS</label>
+                        <input type="email" name="email" class="form-input" required placeholder="Enter your email">
+                    </div>
+                    <p class="form-description">
+                        We'll send you a secure recovery link to reset your password.
+                    </p>
+                    <button type="submit" class="cyber-btn">SEND RECOVERY LINK</button>
+                    <div class="link-text">
+                        Remember your password? <a href="#" onclick="showPage('login')">Back to Login</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+   <script src="{{url_for('static', filename='script.js')}}"></script>
+</body>
+</html>
